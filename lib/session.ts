@@ -1,6 +1,7 @@
 import "server-only";
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
+import { paywallEnabled } from "./config";
 import { users } from "./db";
 
 const COOKIE = "cm_uid";
@@ -25,5 +26,5 @@ export async function getUser() {
     });
   }
   const user = users.get(id)!;
-  return { ...user, premium: user.premium_until > Date.now() };
+  return { ...user, premium: !paywallEnabled() || user.premium_until > Date.now() };
 }

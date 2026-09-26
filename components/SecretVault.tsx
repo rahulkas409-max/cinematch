@@ -47,7 +47,7 @@ export function SecretVault({ onTrailer }: { onTrailer: (m: Movie) => void }) {
   return (
     <section>
       <h2 className="font-display text-xl sm:text-2xl font-extrabold">🗝️ Secret playlists</h2>
-      <p className="text-muted text-sm mt-1">Hand-curated by movie nerds. Premium only.</p>
+      <p className="text-muted text-sm mt-1">Hand-curated by movie nerds.{me?.paywall ? " Premium only." : ""}</p>
       <div className="flex gap-3 overflow-x-auto mt-4 pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 [scrollbar-width:none]">
         {playlists.map((p) => (
           <motion.button

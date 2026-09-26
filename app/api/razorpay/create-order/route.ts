@@ -1,10 +1,11 @@
 import crypto from "node:crypto";
 import Razorpay from "razorpay";
-import { PRICE_PAISE, isSandbox, razorpayKeyId, razorpaySecret } from "@/lib/config";
+import { PRICE_PAISE, isSandbox, razorpayKeyId, razorpaySecret , paywallEnabled } from "@/lib/config";
 import { orders } from "@/lib/db";
 import { getUser } from "@/lib/session";
 
 export async function POST() {
+  if (!paywallEnabled()) return Response.json({ error: "Payments are disabled — CineMatch is free right now." }, { status: 404 });
   const user = await getUser();
 
   if (isSandbox()) {

@@ -8,7 +8,7 @@ export function Header({ onHome }: { onHome: () => void }) {
   const { me, sound, toggleSound, openPaywall } = useApp();
   return (
     <>
-      {me?.sandbox && (
+      {me?.paywall && me.sandbox && (
         <div className="bg-amber text-bg text-xs sm:text-sm font-semibold text-center px-4 py-2 flex items-center justify-center gap-2">
           <FlaskConical size={14} className="shrink-0" />
           <span>
@@ -30,7 +30,7 @@ export function Header({ onHome }: { onHome: () => void }) {
             <button onClick={toggleSound} className="grid place-items-center size-10 rounded-full hover:bg-white/5 text-muted hover:text-ink" aria-label={sound ? "Mute sound effects" : "Enable sound effects"} aria-pressed={sound}>
               {sound ? <Volume2 size={18} /> : <VolumeX size={18} />}
             </button>
-            {me?.premium ? (
+            {!me?.paywall ? null : me.premium ? (
               <span className="inline-flex items-center gap-1.5 rounded-full bg-lime/15 text-lime px-3 py-1.5 text-xs sm:text-sm font-bold">
                 <Crown size={14} /> Premium · {me.premiumHoursLeft}h left
               </span>

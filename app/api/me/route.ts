@@ -1,4 +1,4 @@
-import { FREE_MOOD_MATCHES_PER_DAY, PASS_HOURS, PRICE_PAISE, isRazorpayTestMode, isSandbox, razorpayKeyId } from "@/lib/config";
+import { FREE_MOOD_MATCHES_PER_DAY, PASS_HOURS, PRICE_PAISE, isRazorpayTestMode, isSandbox, paywallEnabled, razorpayKeyId } from "@/lib/config";
 import { moodUsage } from "@/lib/db";
 import { getUser } from "@/lib/session";
 import type { MeResponse } from "@/lib/types";
@@ -6,6 +6,7 @@ import type { MeResponse } from "@/lib/types";
 export async function GET() {
   const user = await getUser();
   const body: MeResponse = {
+    paywall: paywallEnabled(),
     premium: user.premium,
     premiumUntil: user.premium_until,
     premiumHoursLeft: user.premium ? Math.max(1, Math.round((user.premium_until - Date.now()) / 3600_000)) : 0,

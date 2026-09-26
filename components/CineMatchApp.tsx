@@ -7,6 +7,7 @@ import { VIBES, type Movie } from "@/data/movies";
 import { burst } from "@/lib/confetti";
 import { play } from "@/lib/sound";
 import type { QuizProfile } from "@/lib/types";
+import { useApp } from "./AppProvider";
 import { Header } from "./Header";
 import { MoodMatch } from "./MoodMatch";
 import { RecommendationGrid } from "./RecommendationGrid";
@@ -19,6 +20,7 @@ const STORAGE_KEY = "cm_profile";
 const FLOATERS = ["🍿", "🎬", "👻", "🚀", "💘", "🤡", "🎞️", "🦈", "🐉", "🎹"];
 
 export function CineMatchApp() {
+  const { me } = useApp();
   const [stage, setStage] = useState<Stage>("intro");
   const [profile, setProfile] = useState<QuizProfile | null>(null);
   const [trailer, setTrailer] = useState<Movie | null>(null);
@@ -112,7 +114,7 @@ export function CineMatchApp() {
               >
                 Start the vibe check <ArrowRight />
               </motion.button>
-              <p className="relative text-xs text-muted mt-4">Free · 3 personalised picks · full deck for ₹9</p>
+              <p className="relative text-xs text-muted mt-4">{me?.paywall ? "Free · 3 personalised picks · full deck for ₹9" : "100% free · no sign-up"}</p>
             </motion.section>
           )}
 

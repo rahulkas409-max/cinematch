@@ -23,6 +23,8 @@ export interface RecommendResponse {
 }
 
 export interface MeResponse {
+  /** false = everything is free; hide all paywall UI */
+  paywall: boolean;
   premium: boolean;
   premiumUntil: number;
   premiumHoursLeft: number;

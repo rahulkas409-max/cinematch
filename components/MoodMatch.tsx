@@ -49,9 +49,11 @@ export function MoodMatch({ onTrailer }: { onTrailer: (m: Movie) => void }) {
         <h2 className="font-display text-xl sm:text-2xl font-extrabold flex items-center gap-2">
           <Wand2 className="text-violet" /> Mood Match
         </h2>
-        <span className="text-xs rounded-full border border-line px-3 py-1 text-muted">
-          {me?.premium ? "∞ unlimited" : left != null ? `${left} free left today` : ""}
-        </span>
+        {me?.paywall && (
+          <span className="text-xs rounded-full border border-line px-3 py-1 text-muted">
+            {me.premium ? "∞ unlimited" : left != null ? `${left} free left today` : ""}
+          </span>
+        )}
       </div>
       <p className="text-muted text-sm mt-1">Describe your mood in plain words and we&apos;ll match it to movies.</p>
       <form

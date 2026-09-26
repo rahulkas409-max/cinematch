@@ -1,11 +1,12 @@
 import crypto from "node:crypto";
-import { PASS_HOURS, PRICE_PAISE, isSandbox, razorpaySecret } from "@/lib/config";
+import { PASS_HOURS, PRICE_PAISE, isSandbox, razorpaySecret , paywallEnabled } from "@/lib/config";
 import { orders, users } from "@/lib/db";
 import { getUser } from "@/lib/session";
 
 const fail = (error: string, status = 400) => Response.json({ ok: false, error }, { status });
 
 export async function POST(req: Request) {
+  if (!paywallEnabled()) return Response.json({ error: "Payments are disabled — CineMatch is free right now." }, { status: 404 });
   const user = await getUser();
   const body = await req.json().catch(() => ({}));
 

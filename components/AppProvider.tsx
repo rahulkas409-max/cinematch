@@ -76,10 +76,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return !s;
     });
 
+  const paywall = !!me?.paywall;
   const openPaywall = useCallback((reason = "") => {
+    if (!paywall) return;
     setPaywallReason(reason);
     setPaywallOpen(true);
-  }, []);
+  }, [paywall]);
 
   const toggleWatch = async (movieId: string) => {
     if (!me?.premium) return openPaywall("Save movies to your secret watchlist");
