@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #07060d;
+  --surface: #110f1c;
+  --surface-2: #1a1729;
+  --line: #2a2640;
+  --ink: #f4f2ff;
+  --muted: #a39fbd;
+  --pink: #ff2e88;
+  --cyan: #22e3ff;
+  --violet: #a855f7;
+  --lime: #b6ff3b;
+  --amber: #ffc53d;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-pink: var(--pink);
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-lime: var(--lime);
+  --color-amber: var(--amber);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  background-image:
+    radial-gradient(60rem 40rem at 10% -10%, rgb(168 85 247 / 0.18), transparent 60%),
+    radial-gradient(50rem 30rem at 100% 0%, rgb(255 46 136 / 0.14), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, rgb(34 227 255 / 0.1), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* film grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.neon-text {
+  text-shadow: 0 0 12px rgb(255 46 136 / 0.7), 0 0 32px rgb(168 85 247 / 0.5);
+}
+
+.neon-ring {
+  box-shadow: 0 0 0 1px rgb(255 46 136 / 0.5), 0 0 24px rgb(255 46 136 / 0.35), inset 0 0 18px rgb(168 85 247 / 0.15);
+}
+
+.glass {
+  background: color-mix(in oklab, var(--surface) 78%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--line);
+}
+
+input[type="range"].neon-range {
+  appearance: none;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--amber), var(--pink), var(--cyan));
+  outline: none;
+}
+input[type="range"].neon-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--ink);
+  border: 4px solid var(--pink);
+  box-shadow: 0 0 18px var(--pink);
+  cursor: grab;
+}
+input[type="range"].neon-range::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--ink);
+  border: 4px solid var(--pink);
+  box-shadow: 0 0 18px var(--pink);
+  cursor: grab;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

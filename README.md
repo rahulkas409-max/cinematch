@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 CineMatch
 
-## Getting Started
+A playful movie discovery app: pick a vibe, swipe posters, crack emoji riddles, and get
+personalised picks across Hollywood, Bollywood and world cinema. A ₹9 / 24-hour pass
+(Razorpay) unlocks the full watch-deck, secret playlists, unlimited Mood Match and a watchlist.
 
-First, run the development server:
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Requires **Node ≥ 22.5** (uses the built-in `node:sqlite`; you'll see a harmless
+"ExperimentalWarning" in the server log).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+With no keys set, the app runs in **Sandbox Mode**. A banner is shown and the ₹9 unlock is
+simulated, so you can test everything straight away.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configuration (`.env.local`)
 
-## Learn More
+Copy `.env.example` → `.env.local`:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay key id (`rzp_test_…` for test mode, `rzp_live_…` for live) |
+| `RAZORPAY_KEY_SECRET` | Razorpay key secret (server only) |
+| `TMDB_API_KEY` | Optional. TMDB v3 key or v4 read token: real posters, embedded trailers, live ratings, India streaming providers |
+| `DATABASE_PATH` | Optional. SQLite file path (default `./.data/cinematch.db`) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Setting both Razorpay keys turns Sandbox Mode off. After that, simulated unlocks are rejected
+by the server.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How it fits together
 
-## Deploy on Vercel
+```
+app/
+  page.tsx                          → components/CineMatchApp (intro → quiz → results)
+  api/me                            premium status, sandbox flag, free Mood Match quota
+  api/deck                          swipe cards + emoji riddles for the chosen vibes
+  api/recommend                     scored picks; free users get 3, premium get 24
+  api/mood-match                    free-text mood → movies (3/day free, unlimited premium)
+  api/playlists, api/watchlist      premium-only content (server-gated)
+  api/razorpay/create-order         creates a 900-paise INR order (or a sandbox order)
+  api/razorpay/verify-payment       HMAC-SHA256 verification of order_id|payment_id → 24h pass
+components/  VibeQuiz, SwipeDeck, EmojiRiddle, RecommendationGrid, Paywall, MoodMatch, SecretVault …
+data/movies.ts   52 seed movies (9 genres, 8 vibes) + secret playlists
+lib/             recommend.ts (scoring engine), tmdb.ts, db.ts (SQLite), session.ts, sound.ts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Identity:** anonymous, stored in an httpOnly `cm_uid` cookie. Premium status is kept on the
+  server, and locked content is never sent to free users.
+- **Payments:** the verify step checks the signature with `timingSafeEqual`, confirms the order
+  belongs to the caller and is ₹9 INR, and is idempotent, so a replay won't extend the pass
+  a second time.
+- **Mood Match** is a keyword/lexicon matcher, not an LLM. You can swap `moodMatch()` in
+  `lib/recommend.ts` for an LLM call.
+- Seed ratings and streaming platforms are approximate. With `TMDB_API_KEY` set, live TMDB
+  values replace them.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Going to production
+
+- Add a Razorpay **webhook** (`payment.captured`) as a backup to the client-side verify call.
+- Swap SQLite for Postgres/Supabase if you deploy to serverless hosting, where the filesystem
+  is not persistent.
+- Add real accounts (e.g. Supabase Auth) if passes should work across devices.
