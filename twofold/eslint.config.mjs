@@ -12,8 +12,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // TwoFold is a separate Next.js project with its own lint config.
-    "twofold/**",
   ]),
 ]);
 

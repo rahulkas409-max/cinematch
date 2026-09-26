@@ -1,5 +1,7 @@
 # 🎬 CineMatch
 
+> 💞 This repo also contains **TwoFold**, a separate free relationship app, in [`twofold/`](twofold/README.md).
+
 A playful movie discovery app: pick a vibe, swipe posters, crack emoji riddles, and get
 personalised picks across Hollywood, Bollywood and world cinema.
 
