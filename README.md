@@ -62,6 +62,15 @@ lib/             recommend.ts (scoring engine), tmdb.ts, db.ts (SQLite), session
 - Seed ratings and streaming platforms are approximate. With `TMDB_API_KEY` set, live TMDB
   values replace them.
 
+## Deploying to Vercel
+
+1. At [vercel.com](https://vercel.com) sign in with GitHub → **Add New… → Project**.
+2. Import `cinematch`, leave the defaults, and tap **Deploy**.
+3. Every push to `main` redeploys automatically.
+
+On Vercel the SQLite file lives in `/tmp`, which is per-instance and temporary. Saved
+watchlists can occasionally reset, and a hosted database fixes that (see below).
+
 ## Going to production
 
 - Add a Razorpay **webhook** (`payment.captured`) as a backup to the client-side verify call.

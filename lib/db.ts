@@ -4,8 +4,11 @@ import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
 // Zero-config SQLite via Node's built-in driver (Node >= 22.5). The file lives in
-// ./.data by default; override with DATABASE_PATH.
-const dbPath = process.env.DATABASE_PATH || path.join(process.cwd(), ".data", "cinematch.db");
+// ./.data by default; override with DATABASE_PATH. On Vercel the project directory is
+// read-only, so it falls back to /tmp (per-instance and wiped on redeploys).
+const dbPath =
+  process.env.DATABASE_PATH ||
+  (process.env.VERCEL ? "/tmp/cinematch.db" : path.join(process.cwd(), ".data", "cinematch.db"));
 
 declare global {
   var __cinematchDb: DatabaseSync | undefined;
