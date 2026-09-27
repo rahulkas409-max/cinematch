@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy Birthday, Vibha 🌻</title>
+  <meta name="description" content="A sunflower garden of memories, made with love by Rahul for Vibha's birthday." />
+  <meta name="theme-color" content="#FFFDF5" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌻</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mustard: { DEFAULT: '#D97706', dark: '#B45309' },
+            sunflower: { DEFAULT: '#F59E0B', light: '#FBBF24' },
+            ivory: '#FFFDF5',
+            charcoal: '#1F2937',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            hand: ['Caveat', 'cursive'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Lucide Icons + Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+
+  <script>
+    // Runs before any <img> can fail: swaps a missing photo for a pretty labelled placeholder.
+    function photoFallback(img) {
+      img.onerror = null;
+      var slot = document.createElement('div');
+      slot.className = 'photo-placeholder';
+      slot.innerHTML =
+        '<span class="text-5xl">🌻</span>' +
+        '<span class="mt-2 font-hand text-xl text-amber-800">Photo coming soon</span>' +
+        '<code class="mt-1 text-[11px] text-amber-700/80 break-all px-3">' + img.getAttribute('src') + '</code>';
+      img.replaceWith(slot);
+    }
+  </script>
+
+  <style>
+    :root {
+      --mustard: #D97706;
+      --mustard-dark: #B45309;
+      --sun: #F59E0B;
+      --sun-light: #FBBF24;
+      --ivory: #FFFDF5;
+      --charcoal: #1F2937;
+    }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-family: Inter, system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    body.locked { overflow: hidden; }
+
+    /* Ambient glow */
+    .glow {
+      position: fixed; inset: -20vmax; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(40vmax 40vmax at 15% 10%, rgba(251,191,36,.20), transparent 60%),
+        radial-gradient(35vmax 35vmax at 90% 30%, rgba(217,119,6,.12), transparent 60%),
+        radial-gradient(45vmax 45vmax at 50% 100%, rgba(245,158,11,.14), transparent 60%);
+      animation: breathe 12s ease-in-out infinite alternate;
+    }
+    @keyframes breathe { from { transform: scale(1); opacity: .85; } to { transform: scale(1.06); opacity: 1; } }
+
+    /* Falling petals */
+    #petals { position: fixed; inset: 0; pointer-events: none; z-index: 5; overflow: hidden; }
+    .petal {
+      position: absolute; top: -40px;
+      width: 14px; height: 22px;
+      background: linear-gradient(135deg, #FDE68A, #F59E0B 60%, #D97706);
+      border-radius: 80% 0 80% 0;
+      opacity: .85;
+      animation: fall linear forwards, sway ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    @keyframes fall { to { top: 105vh; } }
+    @keyframes sway {
+      from { transform: translateX(-30px) rotate(0deg); }
+      to   { transform: translateX(30px) rotate(220deg); }
+    }
+
+    /* Welcome */
+    #welcome { transition: opacity .9s ease, visibility .9s ease; }
+    #welcome.hide { opacity: 0; visibility: hidden; }
+    .sunflower-spin { animation: spin 18s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .float { animation: float 5s ease-in-out infinite; }
+    @keyframes float { 50% { transform: translateY(-10px); } }
+
+    /* Reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Buttons */
+    .btn-sun {
+      background: linear-gradient(135deg, var(--sun-light), var(--sun) 45%, var(--mustard));
+      color: #fff; box-shadow: 0 10px 30px -10px rgba(217,119,6,.7), inset 0 1px 0 rgba(255,255,255,.35);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn-sun:hover { transform: translateY(-2px); filter: saturate(1.1); box-shadow: 0 16px 36px -12px rgba(217,119,6,.8); }
+    .btn-sun:active { transform: translateY(0) scale(.98); }
+    .btn-sun:focus-visible, .focus-ring:focus-visible { outline: 3px solid var(--sun-light); outline-offset: 3px; }
+
+    .section-title { font-family: "Playfair Display", Georgia, serif; }
+    .divider { display: flex; align-items: center; gap: .75rem; justify-content: center; color: var(--mustard); }
+    .divider::before, .divider::after { content: ""; height: 1px; width: 56px; background: linear-gradient(90deg, transparent, var(--sun)); }
+    .divider::after { transform: scaleX(-1); }
+
+    /* Polaroid flip cards */
+    .flip { perspective: 1000px; }
+    .flip-inner {
+      position: relative; width: 100%; height: 100%;
+      transition: transform .8s cubic-bezier(.2,.7,.2,1);
+      transform-style: preserve-3d;
+    }
+    .flip.flipped .flip-inner { transform: rotateY(180deg); }
+    .flip-face {
+      position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      border-radius: 6px;
+    }
+    .flip-back { transform: rotateY(180deg); }
+    .polaroid {
+      background: #fff; padding: 12px 12px 0;
+      box-shadow: 0 18px 40px -18px rgba(31,41,55,.45), 0 2px 6px rgba(31,41,55,.08);
+    }
+    .polaroid-photo { aspect-ratio: 1 / 1; overflow: hidden; background: #FEF3C7; }
+    .polaroid-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+      background: repeating-linear-gradient(45deg, #FEF3C7, #FEF3C7 12px, #FDE68A 12px, #FDE68A 24px);
+    }
+    .tilt-l { transform: rotate(-2.2deg); }
+    .tilt-r { transform: rotate(2deg); }
+    .card-wrap { transition: transform .35s ease; }
+    .card-wrap:hover { transform: rotate(0deg) translateY(-6px); }
+    .tape {
+      position: absolute; top: -10px; left: 50%; width: 90px; height: 24px; transform: translateX(-50%) rotate(-3deg);
+      background: rgba(251,191,36,.55); box-shadow: 0 1px 2px rgba(0,0,0,.08); z-index: 2;
+    }
+    .note-paper {
+      background:
+        linear-gradient(transparent 31px, rgba(217,119,6,.18) 32px) 0 12px / 100% 32px,
+        #FFFBEB;
+    }
+
+    /* Quiz */
+    .opt { transition: all .2s ease; }
+    .opt:hover:not(:disabled) { border-color: var(--sun); background: #FFFBEB; transform: translateX(4px); }
+    .opt.correct { border-color: #16a34a; background: #F0FDF4; }
+    .opt.wrong { border-color: #dc2626; background: #FEF2F2; animation: shake .4s; }
+    @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+    .pop { animation: pop .5s cubic-bezier(.2,1.6,.4,1); }
+    @keyframes pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .badge-shine { position: relative; overflow: hidden; }
+    .badge-shine::after {
+      content: ""; position: absolute; inset: -50%; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.6) 50%, transparent 60%);
+      animation: shine 3s ease-in-out infinite;
+    }
+    @keyframes shine { from { transform: translateX(-60%); } to { transform: translateX(60%); } }
+
+    /* Reasons */
+    .reason-card { transition: transform .6s cubic-bezier(.2,.7,.2,1), opacity .4s ease; transform-style: preserve-3d; }
+    .reason-card.turning { transform: rotateX(90deg); opacity: 0; }
+
+    /* Envelope */
+    .envelope {
+      position: relative; width: min(340px, 86vw); aspect-ratio: 34 / 22; margin: 0 auto; cursor: pointer;
+      perspective: 1000px;
+    }
+    .env-back { position: absolute; inset: 0; background: #E8B04B; border-radius: 6px; box-shadow: 0 24px 50px -20px rgba(180,83,9,.6); }
+    .env-letter {
+      position: absolute; left: 7%; right: 7%; top: 8%; height: 84%;
+      background: #FFFDF5; border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,.08); z-index: 2;
+      transition: transform .9s cubic-bezier(.2,.7,.2,1) .45s;
+      display: flex; align-items: flex-start; justify-content: center; padding-top: 10%;
+    }
+    .env-front {
+      position: absolute; inset: 0; border-radius: 6px; z-index: 3;
+      background:
+        linear-gradient(to top right, #F2C46D 49.6%, transparent 50%) left / 50.5% 100% no-repeat,
+        linear-gradient(to top left, #F2C46D 49.6%, transparent 50%) right / 50.5% 100% no-repeat;
+    }
+    .env-flap {
+      position: absolute; left: 0; right: 0; top: 0; height: 58%; z-index: 4;
+      background: #DDA23A; clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top; transition: transform .7s ease, z-index 0s .35s;
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,.12));
+    }
+    .wax {
+      position: absolute; left: 50%; top: 58%; z-index: 5; width: 62px; height: 62px; transform: translate(-50%, -50%);
+      border-radius: 50%; display: grid; place-items: center; font-size: 26px;
+      background: radial-gradient(circle at 35% 30%, #EF4444, #B91C1C 60%, #7F1D1D);
+      box-shadow: 0 4px 10px rgba(127,29,29,.5), inset 0 -3px 6px rgba(0,0,0,.25), inset 0 3px 5px rgba(255,255,255,.25);
+      transition: transform .5s ease, opacity .5s ease;
+    }
+    .envelope:hover .wax { transform: translate(-50%, -50%) scale(1.07); }
+    .envelope.open .wax { transform: translate(-50%, -50%) scale(.2) rotate(40deg); opacity: 0; }
+    .envelope.open .env-flap { transform: rotateX(180deg); z-index: 1; }
+    .envelope.open .env-letter { transform: translateY(-58%); }
+    .envelope.open { cursor: default; }
+
+    #letter { transform-origin: top center; transform: perspective(1200px) rotateX(-90deg); opacity: 0; transition: transform 1.1s cubic-bezier(.2,.7,.2,1), opacity .6s ease; }
+    #letter.unfold { transform: perspective(1200px) rotateX(0); opacity: 1; }
+
+    /* Coupons */
+    .coupon {
+      position: relative; background: #FFFBEB; border: 2px dashed var(--sun);
+      -webkit-mask: radial-gradient(circle 12px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+                    radial-gradient(circle 12px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+              mask: radial-gradient(circle 12px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+                    radial-gradient(circle 12px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+    }
+    .stamp {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-14deg) scale(2); opacity: 0;
+      border: 3px solid #B91C1C; color: #B91C1C; padding: 4px 14px; border-radius: 6px;
+      font-family: "Playfair Display", serif; font-weight: 700; letter-spacing: .12em; pointer-events: none;
+      transition: transform .35s cubic-bezier(.2,1.6,.4,1), opacity .2s ease; background: rgba(255,251,235,.85);
+    }
+    .coupon.redeemed .stamp { opacity: 1; transform: translate(-50%, -50%) rotate(-14deg) scale(1); }
+    .coupon.redeemed .coupon-body { opacity: .45; filter: grayscale(.4); }
+
+    /* Music player */
+    .vinyl {
+      background:
+        radial-gradient(circle, #FBBF24 0 18%, #B45309 18.5% 20%, transparent 20.5%),
+        repeating-radial-gradient(circle, #1F2937 0 2px, #111827 2px 4px);
+    }
+    .vinyl.playing { animation: spin 4s linear infinite; }
+    .eq span { display: inline-block; width: 3px; background: var(--sun); border-radius: 2px; height: 4px; }
+    .playing-eq span { animation: eq 1s ease-in-out infinite; }
+    .playing-eq span:nth-child(2) { animation-delay: .2s; }
+    .playing-eq span:nth-child(3) { animation-delay: .4s; }
+    @keyframes eq { 50% { height: 14px; } }
+    input[type=range].vol { accent-color: var(--sun); }
+
+    .nav-pill { transition: background .2s ease, color .2s ease; }
+    .nav-pill:hover { background: #FEF3C7; color: var(--mustard-dark); }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { scrollbar-width: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="locked antialiased">
+  <!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  RAHUL — HOW TO ADD YOUR PHOTOS & MUSIC                               ║
+  ║                                                                      ║
+  ║  1. Drop Vibha's solo photos into  images/  as:                       ║
+  ║       vibha_1.jpg, vibha_2.jpg, vibha_3.jpg                          ║
+  ║  2. Drop photos of the two of you into  images/  as:                  ║
+  ║       us_1.jpg, us_2.jpg, us_3.jpg                                   ║
+  ║  3. Drop Coldplay's "Yellow" into  music/  as:  yellow.mp3            ║
+  ║                                                                      ║
+  ║  Different file names? Search this file for "PHOTO" and "MUSIC" and   ║
+  ║  change the src="" paths. Missing files show a cute placeholder, so   ║
+  ║  nothing breaks while you're still collecting pictures.               ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+  -->
+
+  <div class="glow" aria-hidden="true"></div>
+  <div id="petals" aria-hidden="true"></div>
+
+  <!-- 🎵 MUSIC: Coldplay – Yellow. Put the file at music/yellow.mp3 (or change the src below). -->
+  <audio id="song" src="music/yellow.mp3" loop preload="auto"></audio>
+
+  <!-- ═════════════════ WELCOME SCREEN ═════════════════ -->
+  <div id="welcome" class="fixed inset-0 z-50 flex items-center justify-center px-6 bg-gradient-to-b from-amber-50 via-ivory to-amber-100" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+    <div class="text-center max-w-md">
+      <div class="mx-auto mb-8 w-36 h-36 float" aria-hidden="true">
+        <svg class="sunflower-spin w-full h-full drop-shadow-xl" viewBox="0 0 200 200" data-sunflower></svg>
+      </div>
+      <p class="font-hand text-2xl text-mustard mb-2">psst… this one's just for you</p>
+      <h1 id="welcome-title" class="font-display text-4xl sm:text-5xl leading-tight text-charcoal">A special birthday surprise for Vibha 🌻</h1>
+      <p class="mt-4 text-charcoal/70 font-serif text-xl italic">Turn your sound on, love.</p>
+      <button id="enter-btn" class="btn-sun mt-10 inline-flex items-center gap-2 rounded-full px-7 py-4 text-base sm:text-lg font-semibold">
+        Step into Our Sunflower Garden 💛
+      </button>
+    </div>
+  </div>
+
+  <!-- ═════════════════ TOP NAV ═════════════════ -->
+  <nav class="sticky top-0 z-30 bg-ivory/80 backdrop-blur border-b border-amber-100">
+    <div class="max-w-6xl mx-auto px-4 flex items-center gap-3 h-14">
+      <a href="#hero" class="font-display text-lg text-mustard-dark shrink-0 focus-ring rounded">🌻 Vibha</a>
+      <div class="flex-1 overflow-x-auto no-scrollbar">
+        <div class="flex gap-1 w-max ml-auto text-sm font-medium text-charcoal/70 whitespace-nowrap">
+          <a class="nav-pill rounded-full px-3 py-1.5 focus-ring" href="#moments">Moments</a>
+          <a class="nav-pill rounded-full px-3 py-1.5 focus-ring" href="#quiz">Quiz</a>
+          <a class="nav-pill rounded-full px-3 py-1.5 focus-ring" href="#reasons">Reasons</a>
+          <a class="nav-pill rounded-full px-3 py-1.5 focus-ring" href="#letter-section">Letter</a>
+          <a class="nav-pill rounded-full px-3 py-1.5 focus-ring" href="#coupons">Vouchers</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative z-10">
+    <!-- ═════════════════ HERO ═════════════════ -->
+    <section id="hero" class="min-h-[88vh] flex items-center px-5 py-16">
+      <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+        <div class="text-center md:text-left reveal">
+          <p class="inline-flex items-center gap-2 rounded-full bg-amber-100/80 text-mustard-dark px-4 py-1.5 text-sm font-medium">
+            <i data-lucide="sparkles" class="w-4 h-4"></i> Today is all about you
+          </p>
+          <h1 class="font-display mt-6 text-5xl sm:text-6xl lg:text-7xl leading-[1.05] text-charcoal">
+            Happy Birthday,<br /><span class="italic bg-gradient-to-r from-mustard-dark via-sunflower to-mustard bg-clip-text text-transparent">Vibha</span> 🌻
+          </h1>
+          <p class="mt-6 font-serif text-2xl text-charcoal/80 italic">"Look at the stars, look how they shine for you…"</p>
+          <p class="mt-3 font-hand text-2xl text-mustard">Curated with all my love, Rahul</p>
+          <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <button id="love-btn" class="btn-sun inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 font-semibold">
+              <i data-lucide="heart" class="w-5 h-5"></i> Send Birthday Love
+            </button>
+            <a href="#moments" class="focus-ring inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 font-semibold border-2 border-amber-300 text-mustard-dark hover:bg-amber-50 transition">
+              Our moments <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            </a>
+          </div>
+          <p id="love-count" class="mt-4 text-sm text-charcoal/60 h-5" aria-live="polite"></p>
+        </div>
+        <div class="relative reveal" aria-hidden="true">
+          <div class="absolute inset-8 rounded-full bg-amber-300/30 blur-3xl"></div>
+          <svg class="relative mx-auto w-64 h-64 sm:w-80 sm:h-80 sunflower-spin" viewBox="0 0 200 200" data-sunflower></svg>
+          <span class="absolute top-2 right-6 text-4xl float">💛</span>
+          <span class="absolute bottom-6 left-4 text-3xl float" style="animation-delay:1.5s">🌻</span>
+          <span class="absolute top-1/2 -right-1 text-2xl float" style="animation-delay:.8s">✨</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════════ MOMENTS WITH YOU ═════════════════ -->
+    <section id="moments" class="px-5 py-20 scroll-mt-14">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center reveal">
+          <div class="divider"><i data-lucide="camera" class="w-5 h-5"></i></div>
+          <h2 class="section-title mt-3 text-4xl sm:text-5xl">Moments with You</h2>
+          <p class="mt-3 font-serif text-xl text-charcoal/70 italic">Tap a polaroid to turn it over 💌</p>
+          <div class="mt-6 inline-flex rounded-full bg-amber-100/70 p-1 text-sm font-medium" role="tablist" aria-label="Filter photos">
+            <button class="filter-btn rounded-full px-4 py-2 bg-white shadow text-mustard-dark focus-ring" data-filter="all" role="tab" aria-selected="true">All</button>
+            <button class="filter-btn rounded-full px-4 py-2 text-charcoal/70 focus-ring" data-filter="vibha" role="tab" aria-selected="false">Just Vibha</button>
+            <button class="filter-btn rounded-full px-4 py-2 text-charcoal/70 focus-ring" data-filter="us" role="tab" aria-selected="false">Rahul &amp; Vibha</button>
+          </div>
+        </div>
+
+        <div id="polaroids" class="mt-14 grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 max-w-sm min-[480px]:max-w-none mx-auto">
+
+          <!-- VIBHA SOLO PHOTO 1: images/vibha_1.jpg -->
+          <div class="card-wrap tilt-l reveal" data-group="vibha">
+            <div class="flip relative aspect-[4/5] cursor-pointer focus-ring rounded" tabindex="0" role="button" aria-label="Flip polaroid: My favorite smile">
+              <div class="flip-inner">
+                <div class="flip-face polaroid flex flex-col">
+                  <div class="tape"></div>
+                  <div class="polaroid-photo"><img src="images/vibha_1.jpg" alt="Vibha smiling" loading="lazy" onerror="photoFallback(this)" /></div>
+                  <div class="flex-1 flex flex-col items-center justify-center py-2">
+                    <p class="font-hand text-2xl text-charcoal leading-none">My favorite smile ☀️</p>
+                    <p class="font-hand text-lg text-mustard">— forever &amp; always</p>
+                  </div>
+                </div>
+                <div class="flip-face flip-back note-paper p-6 flex flex-col justify-center text-center shadow-xl">
+                  <i data-lucide="heart" class="w-7 h-7 mx-auto text-mustard"></i>
+                  <p class="mt-4 font-hand text-[1.7rem] leading-8 text-charcoal">"My favorite smile in the entire world. I'd cross oceans just to see it once more."</p>
+                  <p class="mt-4 font-hand text-xl text-mustard-dark">— Rahul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RAHUL & VIBHA PHOTO 1: images/us_1.jpg -->
+          <div class="card-wrap tilt-r reveal" data-group="us">
+            <div class="flip relative aspect-[4/5] cursor-pointer focus-ring rounded" tabindex="0" role="button" aria-label="Flip polaroid: Us, somewhere golden">
+              <div class="flip-inner">
+                <div class="flip-face polaroid flex flex-col">
+                  <div class="tape"></div>
+                  <div class="polaroid-photo"><img src="images/us_1.jpg" alt="Rahul and Vibha together" loading="lazy" onerror="photoFallback(this)" /></div>
+                  <div class="flex-1 flex flex-col items-center justify-center py-2">
+                    <p class="font-hand text-2xl text-charcoal leading-none">Us, somewhere golden</p>
+                    <p class="font-hand text-lg text-mustard">— the day it all began</p>
+                  </div>
+                </div>
+                <div class="flip-face flip-back note-paper p-6 flex flex-col justify-center text-center shadow-xl">
+                  <i data-lucide="star" class="w-7 h-7 mx-auto text-mustard"></i>
+                  <p class="mt-4 font-hand text-[1.7rem] leading-8 text-charcoal">"Look at the stars, look how they shine for you… and everything you do."</p>
+                  <p class="mt-4 font-hand text-xl text-mustard-dark">— our song, always</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIBHA SOLO PHOTO 2: images/vibha_2.jpg -->
+          <div class="card-wrap tilt-l reveal" data-group="vibha">
+            <div class="flip relative aspect-[4/5] cursor-pointer focus-ring rounded" tabindex="0" role="button" aria-label="Flip polaroid: Effortlessly radiant">
+              <div class="flip-inner">
+                <div class="flip-face polaroid flex flex-col">
+                  <div class="tape"></div>
+                  <div class="polaroid-photo"><img src="images/vibha_2.jpg" alt="Vibha looking radiant" loading="lazy" onerror="photoFallback(this)" /></div>
+                  <div class="flex-1 flex flex-col items-center justify-center py-2">
+                    <p class="font-hand text-2xl text-charcoal leading-none">Effortlessly radiant 🌼</p>
+                    <p class="font-hand text-lg text-mustard">— no filter needed</p>
+                  </div>
+                </div>
+                <div class="flip-face flip-back note-paper p-6 flex flex-col justify-center text-center shadow-xl">
+                  <i data-lucide="sun" class="w-7 h-7 mx-auto text-mustard"></i>
+                  <p class="mt-4 font-hand text-[1.7rem] leading-8 text-charcoal">"Sunflowers turn to face the sun. I turn to face you — every single time you walk in."</p>
+                  <p class="mt-4 font-hand text-xl text-mustard-dark">— Rahul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RAHUL & VIBHA PHOTO 2: images/us_2.jpg -->
+          <div class="card-wrap tilt-r reveal" data-group="us">
+            <div class="flip relative aspect-[4/5] cursor-pointer focus-ring rounded" tabindex="0" role="button" aria-label="Flip polaroid: Partners in crime">
+              <div class="flip-inner">
+                <div class="flip-face polaroid flex flex-col">
+                  <div class="tape"></div>
+                  <div class="polaroid-photo"><img src="images/us_2.jpg" alt="Rahul and Vibha laughing" loading="lazy" onerror="photoFallback(this)" /></div>
+                  <div class="flex-1 flex flex-col items-center justify-center py-2">
+                    <p class="font-hand text-2xl text-charcoal leading-none">Partners in crime 😄</p>
+                    <p class="font-hand text-lg text-mustard">— too many laughs to count</p>
+                  </div>
+                </div>
+                <div class="flip-face flip-back note-paper p-6 flex flex-col justify-center text-center shadow-xl">
+                  <i data-lucide="laugh" class="w-7 h-7 mx-auto text-mustard"></i>
+                  <p class="mt-4 font-hand text-[1.7rem] leading-8 text-charcoal">"Inside memory: the time we laughed so hard we forgot what was funny. Best day."</p>
+                  <p class="mt-4 font-hand text-xl text-mustard-dark">— still giggling</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIBHA SOLO PHOTO 3: images/vibha_3.jpg -->
+          <div class="card-wrap tilt-l reveal" data-group="vibha">
+            <div class="flip relative aspect-[4/5] cursor-pointer focus-ring rounded" tabindex="0" role="button" aria-label="Flip polaroid: The birthday girl">
+              <div class="flip-inner">
+                <div class="flip-face polaroid flex flex-col">
+                  <div class="tape"></div>
+                  <div class="polaroid-photo"><img src="images/vibha_3.jpg" alt="The birthday girl" loading="lazy" onerror="photoFallback(this)" /></div>
+                  <div class="flex-1 flex flex-col items-center justify-center py-2">
+                    <p class="font-hand text-2xl text-charcoal leading-none">The birthday girl 🎂</p>
+                    <p class="font-hand text-lg text-mustard">— another year of magic</p>
+                  </div>
+                </div>
+                <div class="flip-face flip-back note-paper p-6 flex flex-col justify-center text-center shadow-xl">
+                  <i data-lucide="cake" class="w-7 h-7 mx-auto text-mustard"></i>
+                  <p class="mt-4 font-hand text-[1.7rem] leading-8 text-charcoal">"The world got a little brighter the day you were born. I'm just lucky I get to live in it with you."</p>
+                  <p class="mt-4 font-hand text-xl text-mustard-dark">— Rahul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RAHUL & VIBHA PHOTO 3: images/us_3.jpg -->
+          <div class="card-wrap tilt-r reveal" data-group="us">
+            <div class="flip relative aspect-[4/5] cursor-pointer focus-ring rounded" tabindex="0" role="button" aria-label="Flip polaroid: Home is you">
+              <div class="flip-inner">
+                <div class="flip-face polaroid flex flex-col">
+                  <div class="tape"></div>
+                  <div class="polaroid-photo"><img src="images/us_3.jpg" alt="Rahul and Vibha, home" loading="lazy" onerror="photoFallback(this)" /></div>
+                  <div class="flex-1 flex flex-col items-center justify-center py-2">
+                    <p class="font-hand text-2xl text-charcoal leading-none">Home is you 🏡</p>
+                    <p class="font-hand text-lg text-mustard">— wherever we are</p>
+                  </div>
+                </div>
+                <div class="flip-face flip-back note-paper p-6 flex flex-col justify-center text-center shadow-xl">
+                  <i data-lucide="home" class="w-7 h-7 mx-auto text-mustard"></i>
+                  <p class="mt-4 font-hand text-[1.7rem] leading-8 text-charcoal">"I don't need a destination. Any road is perfect if you're in the passenger seat."</p>
+                  <p class="mt-4 font-hand text-xl text-mustard-dark">— Rahul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════════ TRIVIA ═════════════════ -->
+    <section id="quiz" class="px-5 py-20 scroll-mt-14 bg-gradient-to-b from-transparent via-amber-50/70 to-transparent">
+      <div class="max-w-2xl mx-auto">
+        <div class="text-center reveal">
+          <div class="divider"><i data-lucide="puzzle" class="w-5 h-5"></i></div>
+          <h2 class="section-title mt-3 text-4xl sm:text-5xl">How Well Do You Know Us?</h2>
+          <p class="mt-3 font-serif text-xl text-charcoal/70 italic">Four questions. Zero pressure. Infinite love.</p>
+        </div>
+
+        <div class="mt-10 rounded-3xl bg-white/90 shadow-[0_30px_60px_-30px_rgba(180,83,9,.45)] ring-1 ring-amber-100 p-6 sm:p-10 reveal">
+          <div id="quiz-body">
+            <div class="flex items-center justify-between text-sm font-medium text-charcoal/60">
+              <span id="quiz-step">Question 1 of 4</span>
+              <span id="quiz-score" class="inline-flex items-center gap-1"><i data-lucide="sun" class="w-4 h-4 text-sunflower"></i> 0</span>
+            </div>
+            <div class="mt-3 h-2 rounded-full bg-amber-100 overflow-hidden">
+              <div id="quiz-bar" class="h-full bg-gradient-to-r from-sunflower-light to-mustard transition-all duration-500" style="width:0%"></div>
+            </div>
+            <h3 id="quiz-q" class="font-display text-2xl sm:text-3xl mt-8 leading-snug"></h3>
+            <div id="quiz-opts" class="mt-6 grid gap-3"></div>
+            <p id="quiz-feedback" class="mt-5 min-h-[3rem] font-serif text-xl italic text-charcoal/80" aria-live="polite"></p>
+            <div class="flex justify-end">
+              <button id="quiz-next" class="btn-sun hidden rounded-full px-6 py-3 font-semibold inline-flex items-center gap-2">Next <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+            </div>
+          </div>
+
+          <div id="quiz-done" class="hidden text-center">
+            <div class="badge-shine pop mx-auto w-48 h-48 rounded-full grid place-items-center bg-gradient-to-br from-sunflower-light via-sunflower to-mustard-dark shadow-2xl ring-8 ring-amber-100">
+              <div class="w-40 h-40 rounded-full border-2 border-dashed border-white/80 grid place-items-center text-white text-center px-3">
+                <div>
+                  <i data-lucide="award" class="w-10 h-10 mx-auto"></i>
+                  <p class="font-display text-lg leading-tight mt-1">Certified<br />Best Partner</p>
+                  <p class="text-[10px] tracking-[.25em] mt-1 opacity-90">EST. BY RAHUL</p>
+                </div>
+              </div>
+            </div>
+            <h3 class="font-display text-3xl mt-8">Badge unlocked, Vibha! 🏅</h3>
+            <p id="quiz-final" class="mt-3 font-serif text-xl italic text-charcoal/80"></p>
+            <button id="quiz-retry" class="mt-6 focus-ring inline-flex items-center gap-2 rounded-full px-5 py-2.5 border-2 border-amber-300 text-mustard-dark font-semibold hover:bg-amber-50 transition">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Play again
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════════ REASONS ═════════════════ -->
+    <section id="reasons" class="px-5 py-20 scroll-mt-14">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="reveal">
+          <div class="divider"><i data-lucide="heart-handshake" class="w-5 h-5"></i></div>
+          <h2 class="section-title mt-3 text-4xl sm:text-5xl">Reasons Rahul Adores Vibha</h2>
+          <p class="mt-3 font-serif text-xl text-charcoal/70 italic">A daily love note generator. Warning: the supply is endless.</p>
+        </div>
+        <div class="mt-10 reveal" style="perspective:1000px">
+          <div id="reason-card" class="reason-card relative mx-auto max-w-xl rounded-3xl bg-gradient-to-br from-amber-50 to-white ring-1 ring-amber-200 px-6 sm:px-10 py-12 shadow-[0_30px_60px_-30px_rgba(180,83,9,.5)]">
+            <span class="absolute -top-6 left-1/2 -translate-x-1/2 text-5xl">🌻</span>
+            <p id="reason-num" class="text-xs tracking-[.3em] uppercase text-mustard font-semibold">Reason #1</p>
+            <p id="reason-text" class="mt-4 font-serif text-2xl sm:text-3xl leading-snug text-charcoal">Tap the button below for a little love note, picked just for today.</p>
+          </div>
+          <button id="reason-btn" class="btn-sun mt-8 inline-flex items-center gap-2 rounded-full px-7 py-4 font-semibold">
+            <i data-lucide="sparkles" class="w-5 h-5"></i> Give me a love note
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═════════════════ ENVELOPE + LETTER ═════════════════ -->
+    <section id="letter-section" class="px-5 py-20 scroll-mt-14 bg-gradient-to-b from-transparent via-amber-50/70 to-transparent">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="reveal">
+          <div class="divider"><i data-lucide="mail-heart" class="w-5 h-5"></i></div>
+          <h2 class="section-title mt-3 text-4xl sm:text-5xl">A Sealed Letter for You</h2>
+          <p class="mt-3 font-serif text-xl text-charcoal/70 italic">Break the seal whenever you're ready 💌</p>
+        </div>
+
+        <div class="mt-24 reveal">
+          <div id="envelope" class="envelope focus-ring rounded" role="button" tabindex="0" aria-label="Open the sealed birthday envelope">
+            <div class="env-back"></div>
+            <div class="env-letter"><p class="font-hand text-2xl text-mustard-dark">For Vibha 💛</p></div>
+            <div class="env-front"></div>
+            <div class="env-flap"></div>
+            <div class="wax" aria-hidden="true">🌻</div>
+          </div>
+          <p id="env-hint" class="mt-8 text-sm text-charcoal/60 inline-flex items-center gap-1"><i data-lucide="hand" class="w-4 h-4"></i> Tap the wax seal</p>
+        </div>
+
+        <article id="letter" class="hidden mt-12 text-left mx-auto max-w-2xl rounded-2xl note-paper ring-1 ring-amber-200 shadow-[0_30px_70px_-30px_rgba(180,83,9,.55)] px-6 sm:px-12 py-10 sm:py-14">
+          <p class="font-hand text-3xl text-mustard-dark">My dearest Vibha,</p>
+          <div class="mt-6 space-y-5 font-serif text-[1.3rem] leading-[2rem] text-charcoal/90">
+            <p>Happy birthday, my sunflower. If I could, I'd bottle up every golden hour, every late-night laugh and every quiet moment where you rest your head on my shoulder, and hand them all to you today.</p>
+            <p>You make ordinary days feel like a song. You're the reason I believe in the kind of love that Coldplay sings about — the kind where the stars really do seem to shine just for you. When I'm with you, the whole world turns <em>yellow</em>: warm, bright and a little bit magical.</p>
+            <p>Thank you for your patience with my bad jokes, for knowing what I need before I say it, and for choosing me every day. I don't take a single second of it for granted.</p>
+            <p>This year, I hope you chase every dream, eat every dessert, dance in every kitchen and laugh until your cheeks hurt. And I hope I'm right there beside you for all of it — holding your hand, carrying your bag and still staring at you like it's the first time.</p>
+            <p>I love you more than words (or websites) could ever say.</p>
+          </div>
+          <p class="mt-8 font-hand text-3xl text-charcoal">Forever yours,</p>
+          <p class="font-hand text-4xl text-mustard">Rahul 💛</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═════════════════ LOVE VOUCHERS ═════════════════ -->
+    <section id="coupons" class="px-5 py-20 scroll-mt-14">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center reveal">
+          <div class="divider"><i data-lucide="ticket" class="w-5 h-5"></i></div>
+          <h2 class="section-title mt-3 text-4xl sm:text-5xl">Redeemable Love Vouchers</h2>
+          <p class="mt-3 font-serif text-xl text-charcoal/70 italic">No expiry date. No terms &amp; conditions. Just say the word.</p>
+        </div>
+        <div id="coupon-grid" class="mt-12 grid sm:grid-cols-2 gap-6"></div>
+        <p class="mt-8 text-center text-sm text-charcoal/50">
+          <button id="coupon-reset" class="underline decoration-dotted underline-offset-4 hover:text-mustard-dark focus-ring rounded">Reset all vouchers</button>
+        </p>
+      </div>
+    </section>
+
+    <footer class="px-5 pt-10 pb-32 text-center">
+      <svg class="mx-auto w-16 h-16 sunflower-spin" viewBox="0 0 200 200" data-sunflower aria-hidden="true"></svg>
+      <p class="mt-4 font-display text-2xl">Happy Birthday, Vibha.</p>
+      <p class="mt-1 font-hand text-2xl text-mustard">You are my sunshine, always — Rahul</p>
+    </footer>
+  </main>
+
+  <!-- ═════════════════ FLOATING MUSIC PLAYER ═════════════════ -->
+  <div id="player" class="fixed bottom-4 right-4 z-40 hidden items-center gap-3 rounded-full bg-white/95 backdrop-blur shadow-[0_18px_40px_-15px_rgba(31,41,55,.45)] ring-1 ring-amber-100 pl-2 pr-3 py-2 max-w-[calc(100vw-2rem)]">
+    <button id="play-btn" class="relative shrink-0 w-12 h-12 rounded-full focus-ring" aria-label="Pause music">
+      <span id="vinyl" class="vinyl absolute inset-0 rounded-full"></span>
+      <span id="play-icon" class="absolute inset-0 grid place-items-center text-white opacity-0 hover:opacity-100 transition bg-black/30 rounded-full">
+        <i data-lucide="pause" class="w-5 h-5"></i>
+      </span>
+    </button>
+    <div class="min-w-0">
+      <p class="text-[13px] font-semibold leading-tight truncate">Coldplay - Yellow</p>
+      <p id="track-sub" class="text-xs text-mustard leading-tight truncate flex items-center gap-1.5">
+        <span id="eq" class="eq inline-flex items-end gap-[2px] h-[14px]"><span></span><span></span><span></span></span>
+        <span>(For Vibha)</span>
+      </p>
+    </div>
+    <input id="vol" class="vol hidden sm:block w-20" type="range" min="0" max="1" step="0.05" value="0.7" aria-label="Volume" />
+    <button id="mute-btn" class="shrink-0 w-9 h-9 grid place-items-center rounded-full hover:bg-amber-50 text-charcoal/70 focus-ring" aria-label="Mute">
+      <i data-lucide="volume-2" class="w-5 h-5"></i>
+    </button>
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ───────────── EDITABLE CONTENT (Rahul, tweak freely) ───────────── */
+
+    // Quiz: set `answer` to the index (0-based) of the correct option.
+    var QUIZ = [
+      {
+        q: 'Who fell in love first, Rahul or Vibha?',
+        options: ['Rahul — obviously, instantly, hopelessly', 'Vibha — she just hid it well', 'Both at the exact same moment'],
+        answer: 0,
+        right: 'Correct! He never stood a chance. 🥹',
+        wrong: 'Plot twist: it was Rahul, from the very first hello.',
+      },
+      {
+        q: 'What is our undisputed signature comfort food / late-night craving?',
+        options: ['Midnight Maggi 🍜', 'Cheesy pizza 🍕', 'Momos with extra chutney 🥟', 'Ice cream straight from the tub 🍨'],
+        answer: 0,
+        right: 'Yes! Nothing beats midnight Maggi together.',
+        wrong: 'So close — but it’s midnight Maggi, always.',
+      },
+      {
+        q: 'What is Vibha’s true superpower?',
+        options: ['Making Rahul smile no matter what', 'Picking the best songs', 'Being effortlessly radiant', 'All of the above!'],
+        answer: 3,
+        right: 'All of the above — and about a hundred more. ✨',
+        wrong: 'True… but the real answer is ALL of the above!',
+      },
+      {
+        q: 'Our dream next travel destination?',
+        options: ['Switzerland 🏔️', 'Bali 🌴', 'Paris 🗼', 'Japan 🌸'],
+        answer: 0,
+        right: 'Snowy mountains, hot chocolate, and you. Can’t wait.',
+        wrong: 'Close! It’s Switzerland — pack your warmest sweater.',
+      },
+    ];
+
+    var REASONS = [
+      'The way your whole face lights up when you laugh — sunflowers are jealous.',
+      'You remember the tiny things I say and turn them into big surprises.',
+      'You make grocery runs feel like adventures.',
+      'Your hugs fix bad days faster than any medicine ever could.',
+      'You pick the best songs, and somehow every one reminds me of you.',
+      'You’re kind to everyone — even when no one is watching.',
+      'You believe in me on the days I forget to believe in myself.',
+      'The little crinkle in your nose when something makes you happy.',
+      'You’re my favourite person to do absolutely nothing with.',
+      'Your texts still give me butterflies.',
+      'You’re brave, even when you’re scared — especially then.',
+      'You make every place feel like home.',
+      'Your sleepy voice. That’s it. That’s the reason.',
+      'You steal my fries and my heart with equal confidence.',
+      'You turn my ordinary days into golden ones.',
+      'You listen — really listen — like nothing else in the world matters.',
+      'You’re beautiful in a way that has nothing to do with mirrors.',
+      'Because with you, every song sounds like "Yellow".',
+      'You make me want to be a better man, every single day.',
+      'Simply because you’re you — and there’s no one I’d rather love.',
+    ];
+
+    var COUPONS = [
+      { icon: 'coffee', title: 'One Free Coffee Date on Rahul', note: 'Your café, your order, my wallet. Extra pastry included.' },
+      { icon: 'car', title: 'Late Night Long Drive Voucher', note: 'Windows down, Coldplay up, no destination required.' },
+      { icon: 'music', title: 'Vibha Gets Full Control of the Music/Movie Tonight', note: 'No vetoes, no sighs, no "are you sure?". Your pick, always.' },
+      { icon: 'utensils', title: 'Breakfast in Bed', note: 'Chef Rahul reporting for duty. Burnt toast not guaranteed… mostly.' },
+      { icon: 'hand-heart', title: 'One Unlimited Cuddle Session', note: 'Redeemable at any hour. Blanket and snacks provided.' },
+      { icon: 'flower-2', title: 'Surprise Sunflower Bouquet', note: 'Because you deserve flowers on a random Tuesday too.' },
+    ];
+
+    /* ───────────── helpers ───────────── */
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var $ = function (s, r) { return (r || document).querySelector(s); };
+    var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+    var GOLD = ['#FBBF24', '#F59E0B', '#D97706', '#B45309', '#FDE68A', '#FFFDF5'];
+
+    function icons() { if (window.lucide) window.lucide.createIcons(); }
+    function setIcon(el, name, cls) { el.innerHTML = '<i data-lucide="' + name + '" class="' + (cls || 'w-5 h-5') + '"></i>'; icons(); }
+
+    var shapes = null;
+    function confettiShapes() {
+      if (shapes !== null) return shapes;
+      shapes = [];
+      try {
+        if (window.confetti && confetti.shapeFromText) {
+          shapes = [confetti.shapeFromText({ text: '🌻', scalar: 2 }), confetti.shapeFromText({ text: '💛', scalar: 2 })];
+        }
+      } catch (e) { shapes = []; }
+      return shapes;
+    }
+
+    function burst(originEl, big) {
+      if (!window.confetti || reduceMotion) return;
+      var origin = { x: 0.5, y: 0.6 };
+      if (originEl) {
+        var r = originEl.getBoundingClientRect();
+        origin = { x: (r.left + r.width / 2) / innerWidth, y: (r.top + r.height / 2) / innerHeight };
+      }
+      confetti({ particleCount: big ? 140 : 70, spread: big ? 100 : 70, startVelocity: big ? 45 : 32, origin: origin, colors: GOLD, zIndex: 60 });
+      var s = confettiShapes();
+      if (s.length) confetti({ particleCount: big ? 26 : 12, spread: 90, startVelocity: 30, origin: origin, shapes: s, scalar: 2, flat: false, zIndex: 60 });
+    }
+
+    function celebrate() {
+      if (!window.confetti || reduceMotion) return;
+      var end = Date.now() + 1400;
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 60, origin: { x: 0, y: 0.7 }, colors: GOLD, zIndex: 60 });
+        confetti({ particleCount: 5, angle: 120, spread: 60, origin: { x: 1, y: 0.7 }, colors: GOLD, zIndex: 60 });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+      burst(null, true);
+    }
+
+    /* ───────────── sunflower SVG (drawn once, reused) ───────────── */
+    function sunflowerSVG() {
+      var petals = '';
+      for (var ring = 0; ring < 2; ring++) {
+        for (var i = 0; i < 20; i++) {
+          var a = i * 18 + ring * 9;
+          petals += '<ellipse cx="100" cy="' + (ring ? 42 : 36) + '" rx="' + (ring ? 11 : 12) + '" ry="' + (ring ? 30 : 34) + '" fill="' + (ring ? '#F59E0B' : '#FBBF24') + '" transform="rotate(' + a + ' 100 100)"/>';
+        }
+      }
+      var seeds = '';
+      for (var k = 1; k < 90; k++) {
+        var r = 3.6 * Math.sqrt(k), t = k * 2.39996;
+        seeds += '<circle cx="' + (100 + r * Math.cos(t)).toFixed(1) + '" cy="' + (100 + r * Math.sin(t)).toFixed(1) + '" r="1.7" fill="#FBBF24" opacity=".55"/>';
+      }
+      return petals + '<circle cx="100" cy="100" r="38" fill="#78350F"/><circle cx="100" cy="100" r="38" fill="url(#sf-g)"/>' + seeds +
+        '<defs><radialGradient id="sf-g"><stop offset="0" stop-color="#92400E"/><stop offset="1" stop-color="#451A03"/></radialGradient></defs>';
+    }
+    var sf = sunflowerSVG();
+    $$('[data-sunflower]').forEach(function (el) { el.innerHTML = sf; });
+
+    /* ───────────── petals ───────────── */
+    var petalBox = $('#petals'), petalTimer = null;
+    function spawnPetal() {
+      if (document.hidden || petalBox.childElementCount > 26) return;
+      var p = document.createElement('span');
+      p.className = 'petal';
+      var size = 0.6 + Math.random() * 0.8, fall = 9 + Math.random() * 9;
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.transform = 'scale(' + size + ')';
+      p.style.width = 14 * size + 'px';
+      p.style.height = 22 * size + 'px';
+      p.style.opacity = (0.45 + Math.random() * 0.45).toFixed(2);
+      p.style.animationDuration = fall + 's, ' + (2 + Math.random() * 3) + 's';
+      petalBox.appendChild(p);
+      setTimeout(function () { p.remove(); }, fall * 1000 + 200);
+    }
+    function startPetals() {
+      if (reduceMotion || petalTimer) return;
+      for (var i = 0; i < 8; i++) setTimeout(spawnPetal, i * 250);
+      petalTimer = setInterval(spawnPetal, 900);
+    }
+
+    /* ───────────── music player ───────────── */
+    var song = $('#song'), player = $('#player'), playBtn = $('#play-btn'), vinyl = $('#vinyl'),
+        eq = $('#eq'), muteBtn = $('#mute-btn'), vol = $('#vol'), playIcon = $('#play-icon'), trackSub = $('#track-sub');
+    song.volume = 0.7;
+
+    function syncPlayer() {
+      var playing = !song.paused;
+      vinyl.classList.toggle('playing', playing);
+      eq.classList.toggle('playing-eq', playing);
+      playBtn.setAttribute('aria-label', playing ? 'Pause music' : 'Play music');
+      setIcon(playIcon, playing ? 'pause' : 'play');
+      playIcon.style.opacity = playing ? '' : '1';
+    }
+    function syncMute() {
+      var muted = song.muted || song.volume === 0;
+      muteBtn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+      setIcon(muteBtn, muted ? 'volume-x' : 'volume-2');
+    }
+    function play() {
+      var p = song.play();
+      if (p && p.catch) p.catch(function () { syncPlayer(); });
+    }
+    song.addEventListener('play', syncPlayer);
+    song.addEventListener('pause', syncPlayer);
+    song.addEventListener('error', function () {
+      trackSub.innerHTML = '<span>Add music/yellow.mp3 🎵</span>';
+      playBtn.disabled = true; muteBtn.disabled = true; vol.disabled = true;
+      syncPlayer();
+    });
+    playBtn.addEventListener('click', function () { song.paused ? play() : song.pause(); });
+    muteBtn.addEventListener('click', function () {
+      if (song.volume === 0) { song.volume = 0.7; vol.value = 0.7; song.muted = false; }
+      else song.muted = !song.muted;
+      syncMute();
+    });
+    vol.addEventListener('input', function () { song.volume = parseFloat(vol.value); song.muted = false; syncMute(); });
+
+    /* ───────────── welcome ───────────── */
+    $('#enter-btn').addEventListener('click', function () {
+      play();
+      $('#welcome').classList.add('hide');
+      document.body.classList.remove('locked');
+      player.classList.remove('hidden'); player.classList.add('flex');
+      startPetals();
+      setTimeout(function () { burst($('#love-btn'), true); }, 700);
+      setTimeout(function () { $('#welcome').remove(); }, 1000);
+    });
+
+    /* ───────────── reveal on scroll ───────────── */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      $$('.reveal').forEach(function (el) { io.observe(el); });
+    } else {
+      $$('.reveal').forEach(function (el) { el.classList.add('in'); });
+    }
+
+    /* ───────────── hero love button ───────────── */
+    var loves = 0;
+    $('#love-btn').addEventListener('click', function (e) {
+      loves++;
+      burst(e.currentTarget, true);
+      var msgs = ['Love sent! 💛', 'Double the love! 💛💛', 'Triple sunshine! 🌻🌻🌻', 'Rahul loves you this much × ' + loves + ' 💛'];
+      $('#love-count').textContent = msgs[Math.min(loves - 1, 3)];
+    });
+
+    /* ───────────── polaroids ───────────── */
+    $$('.flip').forEach(function (card) {
+      function toggle() { card.classList.toggle('flipped'); }
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+    });
+    $$('.filter-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var f = btn.dataset.filter;
+        $$('.filter-btn').forEach(function (b) {
+          var on = b === btn;
+          b.setAttribute('aria-selected', on);
+          b.classList.toggle('bg-white', on); b.classList.toggle('shadow', on);
+          b.classList.toggle('text-mustard-dark', on); b.classList.toggle('text-charcoal/70', !on);
+        });
+        $$('#polaroids [data-group]').forEach(function (c) {
+          c.classList.toggle('hidden', f !== 'all' && c.dataset.group !== f);
+        });
+      });
+    });
+
+    /* ───────────── quiz ───────────── */
+    var qi = 0, score = 0;
+    var qEl = $('#quiz-q'), optsEl = $('#quiz-opts'), fbEl = $('#quiz-feedback'), nextBtn = $('#quiz-next');
+
+    function renderQ() {
+      var item = QUIZ[qi];
+      $('#quiz-step').textContent = 'Question ' + (qi + 1) + ' of ' + QUIZ.length;
+      $('#quiz-bar').style.width = (qi / QUIZ.length * 100) + '%';
+      qEl.textContent = item.q;
+      qEl.classList.remove('pop'); void qEl.offsetWidth; qEl.classList.add('pop');
+      fbEl.textContent = '';
+      nextBtn.classList.add('hidden');
+      optsEl.innerHTML = '';
+      item.options.forEach(function (text, i) {
+        var b = document.createElement('button');
+        b.className = 'opt focus-ring w-full text-left rounded-2xl border-2 border-amber-100 bg-white px-5 py-4 font-medium flex items-center gap-3';
+        b.innerHTML = '<span class="shrink-0 w-8 h-8 rounded-full bg-amber-100 text-mustard-dark grid place-items-center text-sm font-semibold">' + 'ABCD'[i] + '</span><span></span>';
+        b.lastChild.textContent = text;
+        b.addEventListener('click', function () { answer(i, b); });
+        optsEl.appendChild(b);
+      });
+    }
+    function answer(i, btn) {
+      var item = QUIZ[qi], buttons = $$('button', optsEl);
+      buttons.forEach(function (b) { b.disabled = true; b.classList.add('cursor-default'); });
+      buttons[item.answer].classList.add('correct');
+      if (i === item.answer) {
+        score++;
+        fbEl.textContent = item.right;
+        burst(btn, false);
+      } else {
+        btn.classList.add('wrong');
+        fbEl.textContent = item.wrong;
+      }
+      $('#quiz-score').innerHTML = '<i data-lucide="sun" class="w-4 h-4 text-sunflower"></i> ' + score;
+      icons();
+      nextBtn.innerHTML = (qi === QUIZ.length - 1 ? 'See my badge' : 'Next') + ' <i data-lucide="arrow-right" class="w-4 h-4"></i>';
+      icons();
+      nextBtn.classList.remove('hidden');
+      nextBtn.focus({ preventScroll: true });
+    }
+    nextBtn.addEventListener('click', function () {
+      qi++;
+      if (qi < QUIZ.length) return renderQ();
+      $('#quiz-bar').style.width = '100%';
+      $('#quiz-body').classList.add('hidden');
+      $('#quiz-done').classList.remove('hidden');
+      var lines = [
+        'You scored ' + score + '/4 — but honestly, you had my heart at hello. 💛',
+        'You scored ' + score + '/4 — we’ll make more memories so you ace it next time. 💛',
+        'You scored ' + score + '/4 — pretty great! You clearly know us well. 🌻',
+        'You scored ' + score + '/4 — so close to perfect, just like you. 🌻',
+        'Perfect ' + score + '/4! You know us better than anyone in the universe. 🏆',
+      ];
+      $('#quiz-final').textContent = lines[score];
+      celebrate();
+    });
+    $('#quiz-retry').addEventListener('click', function () {
+      qi = 0; score = 0;
+      $('#quiz-score').innerHTML = '<i data-lucide="sun" class="w-4 h-4 text-sunflower"></i> 0';
+      $('#quiz-done').classList.add('hidden');
+      $('#quiz-body').classList.remove('hidden');
+      renderQ(); icons();
+    });
+    renderQ();
+
+    /* ───────────── reasons ───────────── */
+    var bag = [], shown = 0;
+    function nextReason() {
+      if (!bag.length) {
+        bag = REASONS.map(function (_, i) { return i; });
+        for (var i = bag.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = bag[i]; bag[i] = bag[j]; bag[j] = t; }
+      }
+      return bag.pop();
+    }
+    $('#reason-btn').addEventListener('click', function (e) {
+      var card = $('#reason-card'), btn = e.currentTarget;
+      card.classList.add('turning');
+      setTimeout(function () {
+        shown++;
+        $('#reason-num').textContent = 'Reason #' + shown + (shown > REASONS.length ? ' (and counting)' : '');
+        $('#reason-text').textContent = REASONS[nextReason()];
+        card.classList.remove('turning');
+        burst(btn, false);
+      }, reduceMotion ? 0 : 320);
+      btn.lastChild.textContent = ' Another one, please';
+    });
+
+    /* ───────────── envelope ───────────── */
+    var env = $('#envelope');
+    function openEnvelope() {
+      if (env.classList.contains('open')) return;
+      env.classList.add('open');
+      env.setAttribute('aria-label', 'Envelope opened');
+      $('#env-hint').innerHTML = '<span class="font-hand text-xl text-mustard">Scroll down, it’s all yours ↓</span>';
+      var letter = $('#letter');
+      setTimeout(function () {
+        letter.classList.remove('hidden');
+        requestAnimationFrame(function () { requestAnimationFrame(function () { letter.classList.add('unfold'); }); });
+        burst(env, true);
+        setTimeout(function () { letter.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); }, 500);
+      }, reduceMotion ? 0 : 1300);
+    }
+    env.addEventListener('click', openEnvelope);
+    env.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); } });
+
+    /* ───────────── coupons ───────────── */
+    var STORE = 'vibha-coupons-v1', redeemed = {};
+    try { redeemed = JSON.parse(localStorage.getItem(STORE) || '{}') || {}; } catch (e) { redeemed = {}; }
+    function save() { try { localStorage.setItem(STORE, JSON.stringify(redeemed)); } catch (e) {} }
+
+    var grid = $('#coupon-grid');
+    COUPONS.forEach(function (c, i) {
+      var el = document.createElement('div');
+      el.className = 'coupon reveal rounded-2xl px-7 py-6' + (redeemed[i] ? ' redeemed' : '');
+      el.innerHTML =
+        '<div class="coupon-body transition flex gap-4 items-start">' +
+          '<span class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-sunflower-light to-mustard text-white grid place-items-center shadow"><i data-lucide="' + c.icon + '" class="w-6 h-6"></i></span>' +
+          '<div class="min-w-0 flex-1">' +
+            '<p class="text-[10px] tracking-[.3em] uppercase text-mustard font-semibold">Love Voucher · No. ' + String(i + 1).padStart(3, '0') + '</p>' +
+            '<h3 class="font-display text-xl leading-snug mt-1"></h3>' +
+            '<p class="font-serif text-lg italic text-charcoal/70 mt-1"></p>' +
+            '<div class="mt-4 flex items-center justify-between gap-3 flex-wrap">' +
+              '<span class="font-hand text-lg text-charcoal/60">Valid forever · signed, Rahul</span>' +
+              '<button class="redeem btn-sun rounded-full px-4 py-2 text-sm font-semibold">Redeem</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<span class="stamp">REDEEMED ✓</span>';
+      $('h3', el).textContent = c.title;
+      $('p.font-serif', el).textContent = c.note;
+      var btn = $('.redeem', el);
+      if (redeemed[i]) { btn.disabled = true; btn.textContent = 'Redeemed'; }
+      btn.addEventListener('click', function () {
+        redeemed[i] = Date.now(); save();
+        el.classList.add('redeemed'); btn.disabled = true; btn.textContent = 'Redeemed';
+        burst(btn, false);
+      });
+      grid.appendChild(el);
+      if (window.IntersectionObserver && io) io.observe(el); else el.classList.add('in');
+    });
+    $('#coupon-reset').addEventListener('click', function () {
+      redeemed = {}; save();
+      $$('.coupon', grid).forEach(function (el) {
+        el.classList.remove('redeemed');
+        var b = $('.redeem', el); b.disabled = false; b.textContent = 'Redeem';
+      });
+    });
+
+    /* Lucide loads with `defer`; render icons once it's ready. */
+    if (window.lucide) icons(); else window.addEventListener('load', icons);
+  })();
+  </script>
+</body>
+</html>
